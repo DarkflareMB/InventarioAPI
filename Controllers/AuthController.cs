@@ -14,18 +14,12 @@ namespace InventarioAPI.Controllers
             _authService = authService;
         }
 
-        /// <summary>
-        /// Iniciar sesión y obtener un token JWT.
-        /// </summary>
-        /// <param name="request">Credenciales de usuario.</param>
-        /// <returns>Token JWT si la autenticación es exitosa.</returns>
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
             var token = _authService.Authenticate(request.Username, request.Password);
-
             if (token == null)
-                return Unauthorized(new { message = "Credenciales inválidas" });
+                return Unauthorized(new { mensaje = "Credenciales inválidas" });
 
             return Ok(new { token });
         }

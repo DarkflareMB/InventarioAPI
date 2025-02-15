@@ -1,10 +1,7 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using BCrypt.Net;
-using Microsoft.Extensions.Configuration;
-using InventarioAPI.Models;
 
 namespace InventarioAPI.Services
 {
@@ -12,12 +9,8 @@ namespace InventarioAPI.Services
     {
         private readonly IConfiguration _config;
 
-        // Usuario en memoria (en producción, usar una BD)
-        private static readonly User FakeUser = new()
-        {
-            Username = "admin",
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("password123")
-        };
+        private static readonly string Username = "admin";
+        private static readonly string Password = "password123";
 
         public AuthService(IConfiguration config)
         {
@@ -26,26 +19,23 @@ namespace InventarioAPI.Services
 
         public string? Authenticate(string username, string password)
         {
-            if (username != FakeUser.Username || !BCrypt.Net.BCrypt.Verify(password, FakeUser.PasswordHash))
+            if (username != Username || password != Password)
                 return null;
 
-            var claims = new[]
+            var key = Encoding.UTF8.GetBytes(_config["JwtSettings:Secret"]!);
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                new Claim(ClaimTypes.Name, FakeUser.Username)
+                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _config["JwtSettings:Issuer"],
+                Audience = _config["JwtSettings:Audience"]
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:Secret"]!));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            var token = new JwtSecurityToken(
-                issuer: _config["JwtSettings:Issuer"],
-                audience: _config["JwtSettings:Audience"],
-                claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return tokenHandler.WriteToken(token);
         }
     }
 }
