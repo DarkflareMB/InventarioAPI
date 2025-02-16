@@ -21,9 +21,12 @@ export class InventarioComponent {
   productos: Producto[] = []; // Lista completa de productos
   productosFiltrados: Producto[] = []; // Lista filtrada y ordenada
   filtroNombre: string = ''; // Texto del buscador
-  ordenAscendente: boolean = true; // Orden ascendente o descendente
+  ordenAscendente: boolean = true; // Indica si la ordenación es ascendente o descendente
+  ordenActual: keyof Producto = 'id'; // Campo de orden actual
   paginaActual: number = 1; // Página actual
-  elementosPorPagina: number = 15; // Elementos por página (15, 30, 50)
+  elementosPorPagina: number = 15; // Elementos por página
+  modoOscuro: boolean = false;
+
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -36,12 +39,12 @@ export class InventarioComponent {
 
     if (!token) {
       console.error('No hay token disponible. Redirigiendo al login...');
-      this.router.navigate(['/login']); // Redirigir si no hay token
+      this.router.navigate(['/login']);
       return;
     }
 
     this.http.get<Producto[]>('https://localhost:7063/productos/inventario', {
-      headers: { Authorization: `Bearer ${token}` } // Agregar el token en la cabecera
+      headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: (response) => {
         console.log('Inventario recibido:', response);
@@ -52,7 +55,7 @@ export class InventarioComponent {
         console.error('Error al cargar el inventario', err);
         if (err.status === 401) {
           console.error('Token inválido o expirado. Redirigiendo al login...');
-          this.router.navigate(['/login']); // Redirigir si hay error de autenticación
+          this.router.navigate(['/login']);
         }
       }
     });
@@ -63,12 +66,18 @@ export class InventarioComponent {
     this.productosFiltrados = this.productos.filter(p =>
       p.nombre.toLowerCase().includes(this.filtroNombre.toLowerCase())
     );
-    this.ordenarPor('nombre'); // Ordenar después de filtrar
+    this.ordenarPor(this.ordenActual); // Mantener el orden actual después de filtrar
   }
 
-  // Ordenar por nombre o cantidad
-  ordenarPor(campo: 'nombre' | 'cantidad') {
-    this.ordenAscendente = !this.ordenAscendente;
+  // Ordenar por columna seleccionada
+  ordenarPor(campo: keyof Producto) {
+    if (this.ordenActual === campo) {
+      this.ordenAscendente = !this.ordenAscendente; // Invertir el orden si se selecciona la misma columna
+    } else {
+      this.ordenActual = campo; // Cambiar la columna de orden
+      this.ordenAscendente = true; // Reiniciar a ascendente
+    }
+
     this.productosFiltrados.sort((a, b) => {
       if (a[campo] < b[campo]) return this.ordenAscendente ? -1 : 1;
       if (a[campo] > b[campo]) return this.ordenAscendente ? 1 : -1;
@@ -79,7 +88,7 @@ export class InventarioComponent {
   // Cambiar la cantidad de elementos por página
   cambiarElementosPorPagina(cantidad: number) {
     this.elementosPorPagina = cantidad;
-    this.paginaActual = 1; // Reiniciar la página al cambiar la cantidad
+    this.paginaActual = 1; // Reiniciar a la primera página
   }
 
   // Obtener los productos de la página actual
@@ -111,5 +120,21 @@ export class InventarioComponent {
     a.href = URL.createObjectURL(blob);
     a.download = 'inventario.csv';
     a.click();
+  }
+
+  // Cambiar modo oscuro
+  cambiarModo() {
+    this.modoOscuro = !this.modoOscuro;
+    document.body.classList.toggle('modo-oscuro', this.modoOscuro);
+  }
+
+
+  getStockClass(cantidad: number): string {
+    if (cantidad < 50) {
+      return 'stock-bajo';
+    } else if (cantidad > 100) {
+      return 'stock-alto';
+    }
+    return 'stock-medio';
   }
 }

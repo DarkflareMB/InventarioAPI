@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+.modo-oscuro {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+  .modo-oscuro table {
+    background-color: #2c2c2c;
+    color: #ffffff;
+  }
+
+  .modo-oscuro th {
+    background-color: #005f8a;
+  }
+
+  .modo-oscuro tr:nth-child(even) {
+    background-color: #3a3a3a;
+  }
+
+  .modo-oscuro tr:hover {
+    background-color: #4a4a4a;
+  }

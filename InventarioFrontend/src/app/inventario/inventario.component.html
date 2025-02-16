@@ -1,72 +1,80 @@
-<div class="inventario-container">
-  <h2>Inventario</h2>
+<div class="inventario-wrapper">
+  <div class="inventario-card">
+    <h2>Inventario</h2>
 
-  <!-- Botones de navegación -->
-  <div class="botones-navegacion">
-    <button (click)="irAMovimientos()">
-      <i class="fas fa-plus"></i> Registrar Movimiento
-    </button>
-    <button (click)="cerrarSesion()">
-      <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-    </button>
-    <button (click)="exportarCSV()">
-      <i class="fas fa-file-export"></i> Exportar a CSV
-    </button>
-  </div>
+    <!-- Botones de navegación -->
+    <div class="botones-navegacion">
+      <button (click)="irAMovimientos()">
+        <i class="fas fa-plus"></i> Registrar Movimiento
+      </button>
+      <button (click)="cerrarSesion()">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+      </button>
+      <button (click)="exportarCSV()">
+        <i class="fas fa-file-export"></i> Exportar a CSV
+      </button>
+    </div>
 
-  <!-- Buscador -->
-  <div class="filtro">
-    <input type="text"
-           [(ngModel)]="filtroNombre"
-           (input)="aplicarFiltro()"
-           placeholder="Buscar por nombre..." />
-  </div>
+    <!-- Modo oscuro/claro -->
+    <div class="modo-toggle">
+      <label class="switch">
+        <input type="checkbox" [checked]="modoOscuro" (click)="cambiarModo()">
+        <span class="slider"></span>
+      </label>
+      <span>{{ modoOscuro ? 'Modo Oscuro' : 'Modo Claro' }}</span>
+    </div>
 
-  <!-- Botones de ordenación -->
-  <div class="ordenacion">
-    <button (click)="ordenarPor('nombre')">
-      Ordenar por Nombre {{ ordenAscendente ? '▲' : '▼' }}
-    </button>
-    <button (click)="ordenarPor('cantidad')">
-      Ordenar por Cantidad {{ ordenAscendente ? '▲' : '▼' }}
-    </button>
-  </div>
+    <!-- Buscador -->
+    <div class="filtro">
+      <input type="text"
+             [(ngModel)]="filtroNombre"
+             (input)="aplicarFiltro()"
+             placeholder="Buscar por nombre..." />
+    </div>
 
-  <!-- Selección de elementos por página -->
-  <div class="paginacion">
-    <label>Elementos por página:</label>
-    <select [(ngModel)]="elementosPorPagina" (change)="cambiarElementosPorPagina(elementosPorPagina)">
-      <option value="15">15</option>
-      <option value="30">30</option>
-      <option value="50">50</option>
-    </select>
-  </div>
+    <!-- Tabla de productos -->
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr>
+            <th (click)="ordenarPor('id')">ID 
+              <span *ngIf="ordenActual === 'id'">
+                {{ ordenAscendente ? '▲' : '▼' }}
+              </span>
+            </th>
+            <th (click)="ordenarPor('nombre')">Nombre 
+              <span *ngIf="ordenActual === 'nombre'">
+                {{ ordenAscendente ? '▲' : '▼' }}
+              </span>
+            </th>
+            <th (click)="ordenarPor('cantidad')">Cantidad 
+              <span *ngIf="ordenActual === 'cantidad'">
+                {{ ordenAscendente ? '▲' : '▼' }}
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productosPaginaActual">
+            <td>{{ producto.id }}</td>
+            <td>{{ producto.nombre }}</td>
+            <td [ngClass]="getStockClass(producto.cantidad)" 
+                [attr.title]="producto.cantidad < 50 ? 'Stock bajo' : ''">
+              {{ producto.cantidad }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <!-- Tabla de productos -->
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Cantidad</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let producto of productosPaginaActual">
-        <td>{{ producto.id }}</td>
-        <td>{{ producto.nombre }}</td>
-        <td>{{ producto.cantidad }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Paginación -->
-  <div class="paginacion">
-    <button (click)="paginaActual = paginaActual - 1" [disabled]="paginaActual === 1">Anterior</button>
-    <span>Página {{ paginaActual }}</span>
-    <button (click)="paginaActual = paginaActual + 1"
-            [disabled]="paginaActual * elementosPorPagina >= productosFiltrados.length">
-      Siguiente
-    </button>
+    <!-- Paginación -->
+    <div class="paginacion">
+      <button (click)="paginaActual = paginaActual - 1" [disabled]="paginaActual === 1">Anterior</button>
+      <span>Página {{ paginaActual }}</span>
+      <button (click)="paginaActual = paginaActual + 1"
+              [disabled]="paginaActual * elementosPorPagina >= productosFiltrados.length">
+        Siguiente
+      </button>
+    </div>
   </div>
 </div>

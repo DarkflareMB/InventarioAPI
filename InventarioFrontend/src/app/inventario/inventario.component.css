@@ -1,71 +1,296 @@
-.inventario-container {
-  padding: 2rem;
+/* ======== Estilos generales ======== */
+body {
+  background-color: #f4f6f9; /* Fondo gris claro */
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ======== Modo oscuro ======== */
+.modo-oscuro body {
+  background-color: #121212; /* Gris oscuro, más cómodo a la vista */
+  color: #e0e0e0;
+}
+
+/* Contenedor principal */
+.inventario-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  min-height: 90vh; 
+  padding: 2rem 0; 
+}
+
+/* ======== Tarjeta del inventario ======== */
+.inventario-card {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1000px;
+  min-height: 400px; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modo-oscuro .inventario-card {
+  background-color: #2c2c2c; /* Fondo gris oscuro */
+  color: #e0e0e0; /* Texto claro */
+}
+
+/* ======== Títulos ======== */
+h2 {
+  color: #0077b6;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem; /* Tamaño ligeramente más grande */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* Espaciado más moderno */
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+  h2:hover {
+    transform: translateY(-2px); /* Se mueve ligeramente hacia arriba */
+    color: #005f8a; /* Tono más oscuro al pasar el mouse */
+  }
+
+
+.modo-oscuro h2 {
+  color: #00b4d8; /* Azul claro */
+}
+
+/* ======== Botones ======== */
 .botones-navegacion {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 1rem;
-}
-
-.filtro {
-  margin-bottom: 1rem;
-}
-
-  .filtro input {
-    padding: 0.5rem;
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-
-.ordenacion {
-  margin-bottom: 1rem;
-}
-
-  .ordenacion button {
-    margin-right: 0.5rem;
-  }
-
-.paginacion {
-  margin: 1rem 0;
-}
-
-  .paginacion select {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-
-th, td {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
 }
 
 button {
-  margin-right: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 10px 15px;
   background-color: #0077b6;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
   button:hover {
     background-color: #005f8a;
+    transform: scale(1.05); 
   }
 
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  button:active {
+    transform: scale(0.98); 
   }
+
+
+.modo-oscuro button {
+  background-color: #005f8a;
+}
+
+  .modo-oscuro button:hover {
+    background-color: #00456b;
+  }
+
+/* ======== Modo oscuro/claro (switch) ======== */
+.modo-toggle {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+  .slider:before {
+    position: absolute;
+    content: '';
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+
+input:checked + .slider {
+  background-color: #0077b6;
+}
+
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+/* ======== Buscador ======== */
+.filtro input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.modo-oscuro .filtro input {
+  background-color: #333;
+  color: white;
+  border: 1px solid #777;
+}
+
+/* ======== Tabla ======== */
+.tabla-contenedor {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+.modo-oscuro table {
+  background-color: #1e1e1e; /* Fondo gris oscuro */
+  color: #e0e0e0; /* Texto claro */
+}
+
+/* ======== Filas de la tabla ======== */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.modo-oscuro tr:nth-child(even) {
+  background-color: #2c2c2c; /* Gris oscuro intermedio */
+}
+
+.modo-oscuro tr:nth-child(odd) {
+  background-color: #1e1e1e; /* Gris aún más oscuro */
+}
+
+/* ======== Celdas ======== */
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.modo-oscuro th, .modo-oscuro td {
+  border-bottom: 1px solid #444;
+}
+
+/* ======== Títulos de la tabla ======== */
+th {
+  background-color: #0077b6;
+  color: white;
+  cursor: pointer;
+}
+
+.modo-oscuro th {
+  background-color: #333;
+  color: #00b4d8; /* Azul claro */
+}
+
+td {
+  color: #222;
+}
+
+.modo-oscuro td {
+  color: #f5f5f5; /* Blanco más definido */
+}
+
+/* ======== Hover en filas ======== */
+tr:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
+}
+
+.modo-oscuro tr:hover {
+  background-color: #444;
+}
+
+/* ======== Estilos de stock ======== */
+.stock-bajo {
+  color: red;
+  font-weight: bold;
+}
+
+.stock-medio {
+  color: orange;
+  font-weight: bold;
+}
+
+.stock-alto {
+  color: green;
+  font-weight: bold;
+}
+
+/* ======== Tooltip en hover ======== */
+td[title]:hover {
+  cursor: pointer;
+  position: relative;
+}
+
+  td[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+/* ======== Paginación ======== */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 10px;
+}
+
+  .paginacion button {
+    background-color: #0077b6;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 15px;
+  }
+
+    .paginacion button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
