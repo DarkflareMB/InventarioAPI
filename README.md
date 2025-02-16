@@ -73,7 +73,6 @@ ng serve --open
 El frontend se ejecutará en http://localhost:4200/.
 
 ADVERTENCIA
-
 No tenga conflictos en los puertos 7063 y 4200 (si esos puertos están ocupados en su PC, deberá cambiarlos manualmente).
 
 
