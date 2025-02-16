@@ -1,0 +1,17 @@
+<div class="login-container">
+  <div class="login-box">
+    <img src="assets/logo-ccl.png" alt="CCL Logo" class="logo">
+    <h2>Iniciar Sesión</h2>
+    <form (ngSubmit)="login()">
+      <div class="form-group">
+        <label for="username">Usuario</label>
+        <input type="text" id="username" [(ngModel)]="username" name="username" placeholder="Ingresa tu usuario" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Ingresa tu contraseña" required>
+      </div>
+      <button type="submit" class="login-button">Iniciar Sesión</button>
+    </form>
+  </div>
+</div>

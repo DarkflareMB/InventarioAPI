@@ -1,0 +1,185 @@
+.login-container {
+  max-width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+  button:hover {
+    background-color: #0056b3;
+  }
+/* Estilos generales */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh
+}
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50vh; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -58%);
+  max-width: 350px; 
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.2); 
+  border-radius: 10px; 
+}
+
+
+
+/* Caja de login */
+.login-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Logo */
+.logo {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+/* Título */
+h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Campos de formulario */
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+  input:focus {
+    border-color: #0077b6;
+    box-shadow: 0 0 5px rgba(0, 119, 182, 0.5);
+  }
+
+/* Icono de mostrar/ocultar contraseña */
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  cursor: pointer;
+  color: #0077b6;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+  .password-toggle:hover {
+    color: #005f8a;
+  }
+
+/* Botón de inicio de sesión */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background: #0073e6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+  .login-button:hover {
+    background: #005bb5;
+    transform: scale(1.05);
+  }
+
+  .login-button:active {
+    transform: scale(0.98);
+  }
+
+/* Responsividad */
+@media screen and (max-width: 480px) {
+  .login-box {
+    padding: 1.5rem;
+    width: 90%;
+  }
+}

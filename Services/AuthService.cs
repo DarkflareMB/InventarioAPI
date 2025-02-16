@@ -10,7 +10,7 @@ namespace InventarioAPI.Services
         private readonly IConfiguration _config;
 
         private static readonly string Username = "admin";
-        private static readonly string Password = "password123";
+        private static readonly string Password = "admin";
 
         public AuthService(IConfiguration config)
         {
