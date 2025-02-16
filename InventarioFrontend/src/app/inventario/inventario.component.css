@@ -1,0 +1,71 @@
+.inventario-container {
+  padding: 2rem;
+}
+
+.botones-navegacion {
+  margin-bottom: 1rem;
+}
+
+.filtro {
+  margin-bottom: 1rem;
+}
+
+  .filtro input {
+    padding: 0.5rem;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+.ordenacion {
+  margin-bottom: 1rem;
+}
+
+  .ordenacion button {
+    margin-right: 0.5rem;
+  }
+
+.paginacion {
+  margin: 1rem 0;
+}
+
+  .paginacion select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+button {
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+  button:hover {
+    background-color: #005f8a;
+  }
+
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }

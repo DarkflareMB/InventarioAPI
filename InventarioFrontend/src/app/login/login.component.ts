@@ -20,7 +20,6 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token); // Guardar el token
-        alert('Credenciales correctas'); // Mostrar mensaje de éxito
         this.router.navigate(['/inventario']); // Redirigir a la pantalla de inventario
       },
       error: (err) => {

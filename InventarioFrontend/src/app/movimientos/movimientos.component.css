@@ -1,0 +1,41 @@
+.movimientos-container {
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+button {
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+  button:hover {
+    background-color: #005f8a;
+  }
+
+.mensaje {
+  margin-top: 1rem;
+  color: #0077b6;
+  font-weight: 500;
+}
